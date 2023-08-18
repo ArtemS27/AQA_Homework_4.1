@@ -2,20 +2,32 @@ package ru.netology.carddelivery;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
+import com.codeborne.selenide.logevents.SelenideLogger;
+import io.qameta.allure.selenide.AllureSelenide;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.Keys;
 import ru.netology.carddelivery.data.DataGenerator;
 
-import java.time.Duration;
 import static com.codeborne.selenide.Selenide.*;
 
 public class CardDeliveryTest {
 
+    @BeforeAll
+    static void setUpAll() {
+        SelenideLogger.addListener("allure", new AllureSelenide());
+    }
+
+    @AfterAll
+    static void tearDownAll(){
+        SelenideLogger.removeListener("allure");
+    }
+
     @BeforeEach
     void setup(){
         open("http://localhost:9999");
-        //DataGenerator.Registration.generateUser("ru");
     }
 
     @Test
